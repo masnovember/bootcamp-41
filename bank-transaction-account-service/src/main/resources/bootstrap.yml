@@ -1,0 +1,10 @@
+server:
+  port: 8006
+spring:
+  application:
+    name: bank-transaction-account-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: banca
