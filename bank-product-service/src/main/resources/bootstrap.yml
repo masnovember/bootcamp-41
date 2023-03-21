@@ -1,0 +1,10 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: bank-product-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: banca
