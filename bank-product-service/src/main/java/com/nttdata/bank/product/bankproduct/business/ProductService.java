@@ -20,4 +20,6 @@ public interface ProductService {
 
   Completable delete(Integer productId);
 
+  Observable<Object> getCommissionsByProduct(Integer getMonth, Integer getYear );
+
 }

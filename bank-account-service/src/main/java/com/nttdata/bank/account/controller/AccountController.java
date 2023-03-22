@@ -63,7 +63,7 @@ public class AccountController {
         .delete(accountId);
   }
 
-  @PostMapping("/updBalance/{accountId}/{amount}")
+    @PostMapping("/updBalance/{accountId}/{amount}")
   public Mono<Account> UpdBalance(@PathVariable("accountId") Integer accountId,
                                   @PathVariable("amount") Float amount) {
     return accountService

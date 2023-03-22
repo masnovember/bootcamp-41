@@ -82,4 +82,12 @@ public class ProductServiceImpl implements ProductService {
     return productRepository.deleteById(productId);
   }
 
+  @Override
+  public Observable<Object> getCommissionsByProduct(Integer getMonth, Integer getYear) {
+    Flowable<Product> products = productRepository.findAll();
+
+    return Observable.empty();
+  }
+
+
 }
