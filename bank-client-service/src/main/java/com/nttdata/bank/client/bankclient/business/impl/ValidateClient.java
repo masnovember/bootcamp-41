@@ -2,7 +2,6 @@ package com.nttdata.bank.client.bankclient.business.impl;
 
 import com.nttdata.bank.client.bankclient.business.entity.AccountDto;
 import com.nttdata.bank.client.bankclient.business.entity.CreditDto;
-import com.nttdata.bank.client.bankclient.util.ExternalService;
 import com.nttdata.bank.client.bankclient.util.Parameters;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,9 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import com.nttdata.bank.client.bankclient.business.repository.ClientRepository;
+
+import java.time.Duration;
+
 
 @Setter
 @Getter
@@ -29,7 +31,7 @@ public class ValidateClient {
   @Autowired
   private ExternalService externalService;
   private static long numberOfAccounts = 0;
-  private static float accountBalance = 0;
+  private static long accountBalance = 0;
 
   public Mono<Boolean> validateProfile(Integer clientId, String profile){
     return clientRepository
@@ -49,17 +51,23 @@ public class ValidateClient {
 
   private Boolean validateBalanceAccount(Integer clientId) {
     Flux<AccountDto> accountDto = externalService.externalFindAccountByClientId(clientId);
-    accountDto.subscribe(accountDto1 -> accountBalance = accountDto1.getAccountBalance());
-    return (accountBalance >= Parameters.ACCOUNT_AVERAGE_BALANCE);
+    accountDto
+        .filter(p-> p.getAccountBalance() < Parameters.ACCOUNT_AVERAGE_BALANCE)
+        .count()
+        .subscribe(count-> numberOfAccounts = count);
+     return (numberOfAccounts == 0);
   }
 
   private Boolean validateCreditCard(Integer clientId) {
     Flux<CreditDto> creditDto = externalService.externalFindCreditByClientId(clientId);
-    creditDto
-        .filter(card-> Parameters.getCodeCreditCard().contains(card.getProductId()))
-        .count()
-        .subscribe(count->numberOfAccounts = count);
-    return (numberOfAccounts > 0);
+
+    accountBalance = creditDto
+      .filter(card-> Parameters.getCodeCreditCard().contains(card.getProductId()))
+      .count()
+          .block(Duration.ofSeconds(10L));
+        //.subscribe(count-> accountBalance = count);
+
+    return (accountBalance > 0);
   }
 
   private Boolean validateCurrentAccount(Integer clientId) {

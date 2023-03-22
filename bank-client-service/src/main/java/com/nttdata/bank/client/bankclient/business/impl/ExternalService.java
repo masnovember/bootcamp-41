@@ -1,7 +1,8 @@
-package com.nttdata.bank.client.bankclient.util;
+package com.nttdata.bank.client.bankclient.business.impl;
 
 import com.nttdata.bank.client.bankclient.business.entity.AccountDto;
 import com.nttdata.bank.client.bankclient.business.entity.CreditDto;
+import com.nttdata.bank.client.bankclient.util.Parameters;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ExternalService {
     return webClientBuilder.baseUrl(Parameters.URL_MS_ACCOUNT)
         .build()
         .get()
-        .uri("/byClient/{clientId}", clientId)
+        .uri("/accounts/byClient/{clientId}", clientId)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToFlux(AccountDto.class);
@@ -33,7 +34,7 @@ public class ExternalService {
     return webClientBuilder.baseUrl(Parameters.URL_MS_CREDIT)
         .build()
         .get()
-        .uri("/byClient/{clientId}", clientId)
+        .uri("/credits/byClient/{clientId}", clientId)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToFlux(CreditDto.class);
