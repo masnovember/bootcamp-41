@@ -1,8 +1,10 @@
-server:
-  port: 8001
 spring:
   application:
     name: bank-client-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8090
   data:
     mongodb:
       host: localhost
