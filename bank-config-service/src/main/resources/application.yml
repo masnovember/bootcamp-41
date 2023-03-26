@@ -1,0 +1,13 @@
+server:
+  port: 8090
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main
+          uri: https://github.com/masnovember/bootcamp-41
+          search-paths:
+            - bank-config-data
+  application:
+    name: bank-config-service
