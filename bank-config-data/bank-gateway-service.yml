@@ -1,0 +1,47 @@
+server:
+  port: 8085
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: bank-gateway-service
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: bank-client-service
+          uri: 
+            lb://bank-client-service
+          predicates:
+            - Path=/clients/**
+        - id: bank-product-service
+          uri: 
+            lb://bank-product-service
+          predicates:
+            - Path=/products/**
+        - id: bank-account-service
+          uri:
+            lb://bank-account-service
+          predicates:
+            - Path=/accounts/**
+        - id: bank-credit-service
+          uri:
+            lb://bank-credit-service
+          predicates:
+            - Path=/credits/**
+        - id: bank-transaction-account-service
+          uri:
+            lb://bank-transaction-account-service
+          predicates:
+            - Path=/transactions/accounts/**
