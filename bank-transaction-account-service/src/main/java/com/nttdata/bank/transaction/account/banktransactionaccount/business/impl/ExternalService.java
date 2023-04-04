@@ -1,6 +1,6 @@
 package com.nttdata.bank.transaction.account.banktransactionaccount.business.impl;
 
-import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.AccountDto;
+import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.Account;
 import com.nttdata.bank.transaction.account.banktransactionaccount.util.Parameters;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class ExternalService {
   @Autowired
   public WebClient.Builder webClientBuilder;
 
-  public Mono<AccountDto> externalUpdateBalance(Integer accountId, Float amount) {
+  public Mono<Account> externalUpdateBalance(Integer accountId, Float amount) {
     return webClientBuilder.baseUrl(Parameters.URL_MS_ACCOUNT)
         .build()
         .post()
@@ -29,10 +29,10 @@ public class ExternalService {
             .build(accountId, amount))
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
-        .bodyToMono(AccountDto.class);
+        .bodyToMono(Account.class);
   }
 
-  public Mono<AccountDto> externalFindAccountByNumber(String accountNumber) {
+  public Mono<Account> externalFindAccountByNumber(String accountNumber) {
     return webClientBuilder.baseUrl(Parameters.URL_MS_ACCOUNT)
         .build()
         .post()
@@ -41,7 +41,7 @@ public class ExternalService {
             .build(accountNumber))
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
-        .bodyToMono(AccountDto.class);
+        .bodyToMono(Account.class);
   }
 
 }

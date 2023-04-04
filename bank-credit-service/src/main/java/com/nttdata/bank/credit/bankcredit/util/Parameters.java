@@ -1,4 +1,4 @@
-package com.nttdata.bank.account.bankaccount.util;
+package com.nttdata.bank.credit.bankcredit.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,6 @@ public class Parameters {
   public static final String URL_MS_CLIENTS = "http://localhost:8001";
   public static final String URL_MS_PRODUCTS = "http://localhost:8002";
 
-  public static final String CLIENT_TYPE_PERSONAL = "P";
-  public static  final  Integer CODE_CURRENT_ACCOUNT = 2;
+  public static final String URL_MS_ACCOUNTS = "http://localhost:8003";
 
 }

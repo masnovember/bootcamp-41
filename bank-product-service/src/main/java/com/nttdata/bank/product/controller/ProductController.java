@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,6 +25,12 @@ public class ProductController {
     return productService.getAll();
   }
 
+  @GetMapping("/{productId}")
+  public Maybe<Product> getById(@PathVariable("productId") Integer productId) {
+    return productService
+        .findById(productId);
+  }
+
   @PostMapping
   public Maybe<Product> save(@Valid @RequestBody ProductDto productDto) {
     return productService.save(productDto);
@@ -33,7 +40,6 @@ public class ProductController {
   public Flowable<Product> saveAllProduct(@RequestBody List<ProductDto> productList) {
     return productService.saveAllProduct(productList);
   }
-
   @PutMapping
   public Maybe<Product> update(@Valid @RequestBody ProductDto productDto) {
     return productService.update(productDto);

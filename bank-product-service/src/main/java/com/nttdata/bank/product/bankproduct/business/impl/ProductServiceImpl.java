@@ -3,6 +3,7 @@ package com.nttdata.bank.product.bankproduct.business.impl;
 import com.nttdata.bank.product.bankproduct.business.ProductService;
 import com.nttdata.bank.product.bankproduct.business.entity.Product;
 import com.nttdata.bank.product.bankproduct.business.entity.ProductDto;
+import com.nttdata.bank.product.bankproduct.business.entity.TransactionAccountDto;
 import com.nttdata.bank.product.bankproduct.business.repository.ProductRepository;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 /**
  * <br/> Clase que implementa ProductService<br/>
@@ -83,9 +85,13 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Observable<Object> getCommissionsByProduct(Integer getMonth, Integer getYear) {
-    Flowable<Product> products = productRepository.findAll();
+  public Maybe<Product> findById(Integer productId) {
+    return productRepository.
+        findById(productId);
+  }
 
+  @Override
+  public Observable<Object> getCommissionsByProduct(Integer getMonth, Integer getYear) {
     return Observable.empty();
   }
 

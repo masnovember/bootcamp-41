@@ -1,8 +1,9 @@
-package com.nttdata.bank.account.bankaccount.business.impl;
+package com.nttdata.bank.credit.bankcredit.business.impl;
 
-import com.nttdata.bank.account.bankaccount.business.entity.Client;
-import com.nttdata.bank.account.bankaccount.business.entity.Product;
-import com.nttdata.bank.account.bankaccount.util.Parameters;
+import com.nttdata.bank.credit.bankcredit.business.entity.Account;
+import com.nttdata.bank.credit.bankcredit.business.entity.Client;
+import com.nttdata.bank.credit.bankcredit.business.entity.Product;
+import com.nttdata.bank.credit.bankcredit.util.Parameters;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,17 @@ public class ExternalService {
         .retrieve()
         .bodyToMono(Product.class);
   }
+
+  public Mono<Account> externalFindByAccountNumber(String accountNumber) {
+    return webClientBuilder.baseUrl(Parameters.URL_MS_ACCOUNTS)
+        .build()
+        .get()
+        .uri("/accounts/byAccountNumber/{accountNumber}", accountNumber)
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .bodyToMono(Account.class);
+  }
+
 
 }
 

@@ -1,4 +1,4 @@
-package com.nttdata.bank.account.bankaccount.business.entity;
+package com.nttdata.bank.credit.bankcredit.business.entity;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class AccountDto {
+public class Account {
   private Integer accountId;
   private String accountNumber;
   private Client client;

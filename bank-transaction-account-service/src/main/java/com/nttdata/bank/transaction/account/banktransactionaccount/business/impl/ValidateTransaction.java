@@ -1,6 +1,6 @@
 package com.nttdata.bank.transaction.account.banktransactionaccount.business.impl;
 
-import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.AccountDto;
+import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.Account;
 import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.TransactionAccount;
 import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.TransactionAccountDto;
 import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.WireTransferDto;
@@ -29,43 +29,53 @@ public class ValidateTransaction {
 
   public Mono<Boolean> updateBalance(TransactionAccountDto transactionAccountDto) {
 
-    Float amount = transactionAccountDto.getTransactionAmount();
-    if (Parameters.getRemainingOperations().contains(transactionAccountDto.getTransactionType())) {
-      amount = amount * -1;
-    }
+    return externalService
+           .externalFindAccountByNumber(transactionAccountDto
+           .getAccount().getAccountNumber())
+           .flatMap( account -> {
+              transactionAccountDto.setAccount(account);
 
-    Mono<AccountDto> accountDtoMono = externalService.
-                                      externalUpdateBalance(transactionAccountDto.getAccountId(),
-                                      amount);
-                      accountDtoMono.subscribe();
+              float amount = transactionAccountDto.getTransactionAmount();
+              if (Parameters.getRemainingOperations().contains(transactionAccountDto
+                                                               .getTransactionType())) {
+               amount = amount * -1;
+             }
 
-    return Mono.just(true);
+              externalService.externalUpdateBalance(transactionAccountDto
+                                                    .getAccount().getAccountId(), amount).subscribe();
+
+              return Mono.just(true);
+           });
   }
 
-  public Mono<Boolean> revertBalance(TransactionAccount transactionAccountDto) {
+  public Mono<TransactionAccount> revertBalance(TransactionAccount transactionAccount) {
 
-    Float amount = transactionAccountDto.getTransactionAmount();
-    if (!(Parameters.getRemainingOperations().contains(transactionAccountDto.getTransactionType()))) {
+    TransactionAccount transactionAccountMono = transactionAccount;
+
+    float amount = transactionAccount.getTransactionAmount();
+    if (!(Parameters.getRemainingOperations().contains(transactionAccount.getTransactionType()))) {
       amount = amount * -1;
     }
 
-    Mono<AccountDto> accountDtoMono = externalService.
-        externalUpdateBalance(transactionAccountDto.getAccountId(),
-            amount);
-    accountDtoMono.subscribe();
+    externalService.externalUpdateBalance(transactionAccount.getAccount().getAccountId(), amount)
+                    .subscribe();
 
-    return Mono.just(true);
+    transactionAccountMono.setTransactionId(0);
+    transactionAccountMono.setTransactionType(Parameters.OPERATION_EXTORT);
+    transactionAccountMono.setTransactionAmount(amount);
+
+    return Mono.just(transactionAccountMono);
   }
 
   public Mono<Tuple2<TransactionAccountDto, TransactionAccountDto>>  validWireTransfer(WireTransferDto wireTransferDto) {
 
-    Mono<AccountDto> accountDtoOrigin = externalService
+    Mono<Account> accountDtoOrigin = externalService
         .externalFindAccountByNumber(wireTransferDto.getAccountNumberOrigin())
-        .switchIfEmpty(Mono.just(new AccountDto()));
+        .switchIfEmpty(Mono.just(new Account()));
 
-    Mono<AccountDto> accountDtoDestination = externalService
+    Mono<Account> accountDtoDestination = externalService
         .externalFindAccountByNumber(wireTransferDto.getAccountNumberDestination())
-        .switchIfEmpty(Mono.just(new AccountDto()));
+        .switchIfEmpty(Mono.just(new Account()));
 
     return Mono.zip(accountDtoOrigin, accountDtoDestination,
         (origin, destination)->{
@@ -88,16 +98,16 @@ public class ValidateTransaction {
           TransactionAccountDto accountOrigin = new TransactionAccountDto();
           accountOrigin.setTransactionId(wireTransferDto.getTransactionId());
           accountOrigin.setTransactionType(Parameters.OPERATION_WITHDRAWAL_TRANSFER);
-          accountOrigin.setAccountId(origin.getAccountId());
           accountOrigin.setTransactionAmount(wireTransferDto.getTransactionAmount());
           accountOrigin.setTransactionDate(wireTransferDto.getTransactionDate());
+          accountOrigin.setAccount(origin);
 
           TransactionAccountDto accountDestination = new TransactionAccountDto();
           accountDestination.setTransactionId(wireTransferDto.getTransactionId());
           accountDestination.setTransactionType(Parameters.OPERATION_DEPOSIT_TRANSFER);
-          accountDestination.setAccountId(destination.getAccountId());
           accountDestination.setTransactionAmount(wireTransferDto.getTransactionAmount());
           accountDestination.setTransactionDate(wireTransferDto.getTransactionDate());
+          accountDestination.setAccount(destination);
 
           return Tuples.of(accountOrigin, accountDestination);
 

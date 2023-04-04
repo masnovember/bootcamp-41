@@ -14,10 +14,12 @@ public interface TransactionAccountService {
 
   Mono<TransactionAccount> update(TransactionAccountDto transactionAccountDto);
 
-  Mono<Void> delete(Integer transactionAccountId);
+  Mono<TransactionAccount> delete(Integer transactionAccountId);
 
   Flux<TransactionAccount> getByAccountId(Integer accountId);
 
   Mono<Void> wireTransfer (WireTransferDto wireTransferDto);
+
+  Flux<TransactionAccount> getCommissionByMonth(Integer monthVar);
 
 }

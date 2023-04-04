@@ -19,6 +19,12 @@ public interface CreditService {
 
   Flux<Credit> findByClientId(Integer clientId);
 
+  Mono<Credit> findByCreditNumber(String creditNumber);
+
   Flux<Object> getBalanceByClientId (Integer clientId);
+
+  Mono<Credit> UpdBalance(Integer creditId, Float amount);
+
+  Mono<Credit> associateAccounts(String creditNumber, String accountNumber);
 
 }

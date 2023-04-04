@@ -16,6 +16,9 @@ public class Parameters {
   public static final String OPERATION_WITHDRAWAL = "102";
   public static final String OPERATION_DEPOSIT_TRANSFER = "103";
   public static final String OPERATION_WITHDRAWAL_TRANSFER = "104";
+  public static final String OPERATION_EXTORT = "105";
+
+  public static final String OPERATION_COMMISSION_EXCESS = "900";
 
   public static List<String> getRemainingOperations() {
     return new ArrayList<>(Arrays.asList("102","104"));

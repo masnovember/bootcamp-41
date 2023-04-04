@@ -5,7 +5,6 @@ import com.nttdata.bank.credit.bankcredit.business.CreditService;
 import com.nttdata.bank.credit.bankcredit.business.entity.Credit;
 import com.nttdata.bank.credit.bankcredit.business.entity.CreditDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -51,6 +50,20 @@ public class CreditController {
   @GetMapping("/balanceByClientId/{clientId}")
   public Flux<Object> getBalanceByClientId(@PathVariable("clientId") Integer clientId) {
     return creditService.getBalanceByClientId(clientId);
+  }
+
+  @PostMapping("/updBalance/{creditId}/{amount}")
+  public Mono<Credit> UpdBalance(@PathVariable("creditId") Integer creditId,
+                                  @PathVariable("amount") Float amount) {
+    return creditService
+        .UpdBalance(creditId, amount);
+  }
+
+  @PostMapping("/updDebitCard/{creditNumber}/{accountNumber}")
+  public Mono<Credit> associateAccounts(@PathVariable("creditNumber") String creditNumber,
+                                        @PathVariable("accountNumber") String accountNumber) {
+    return creditService
+        .associateAccounts(creditNumber, accountNumber);
   }
 
 }

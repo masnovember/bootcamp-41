@@ -5,6 +5,7 @@ import com.nttdata.bank.transaction.account.banktransactionaccount.business.enti
 import com.nttdata.bank.transaction.account.banktransactionaccount.business.repository.TransactionAccountRepository;
 import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.TransactionAccount;
 import com.nttdata.bank.transaction.account.banktransactionaccount.business.entity.TransactionAccountDto;
+import com.nttdata.bank.transaction.account.banktransactionaccount.util.Parameters;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dozer.Mapper;
@@ -54,7 +55,7 @@ public class TransactionAccountServiceImpl implements TransactionAccountService 
 
   @Override
   public Mono<TransactionAccount> update(TransactionAccountDto transactionAccountDto) {
-    return transactionAccountRepository.existsById(transactionAccountDto.getAccountId())
+    return transactionAccountRepository.existsById(transactionAccountDto.getAccount().getAccountId())
         .flatMap(isExist -> {
           if (isExist) {
             this.delete(transactionAccountDto.getTransactionId());
@@ -65,22 +66,17 @@ public class TransactionAccountServiceImpl implements TransactionAccountService 
   }
 
   @Override
-  public Mono<Void> delete(Integer transactionAccountId) {
+  public Mono<TransactionAccount> delete(Integer transactionAccountId) {
     return transactionAccountRepository
         .findById(transactionAccountId)
         .flatMap(a-> validateTransaction.revertBalance(a))
-        .flatMap(isTrue->{
-          if (isTrue) {
-            return transactionAccountRepository.deleteById(transactionAccountId);
-          }
-          return Mono.empty();
-        });
+        .flatMap(p-> transactionAccountRepository.save(p));
   }
 
   @Override
   public Flux<TransactionAccount> getByAccountId(Integer accountId) {
     return transactionAccountRepository.findAll()
-        .filter(p -> p.getAccountId().equals(accountId))
+        .filter(p -> p.getAccount().getAccountId().equals(accountId))
         .switchIfEmpty(Mono.empty());
   }
 
@@ -99,5 +95,17 @@ public class TransactionAccountServiceImpl implements TransactionAccountService 
         });
   }
 
+  @Override
+  public Flux<TransactionAccount> getCommissionByMonth(Integer monthVar) {
+    return transactionAccountRepository
+        .findAll()
+        .filter(transactionAccount ->
+            Integer.parseInt(transactionAccount
+                             .getTransactionDate()
+                             .toString()
+                             .substring(4,5)) == monthVar)
+        .filter(transactionAccount -> transactionAccount.getTransactionType().equals(Parameters.OPERATION_COMMISSION_EXCESS))
+        .switchIfEmpty(Flux.empty());
+  }
 
 }

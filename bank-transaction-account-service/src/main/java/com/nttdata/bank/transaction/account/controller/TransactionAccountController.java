@@ -40,13 +40,18 @@ public class TransactionAccountController {
   }
 
   @PostMapping("/delete/{transactionAccountId}")
-  public Mono<Void> deleteById(@PathVariable("transactionAccountId") Integer transactionAccountId){
+  public Mono<TransactionAccount> deleteById(@PathVariable("transactionAccountId") Integer transactionAccountId){
     return transactionAccountService.delete(transactionAccountId);
   }
 
   @PostMapping("/transfer")
   public Mono<Void> transfer(@RequestBody WireTransferDto wireTransferDto) {
     return transactionAccountService.wireTransfer(wireTransferDto);
+  }
+
+  @GetMapping("/commission/{monthVar}")
+  public Flux<TransactionAccount> getCommissionByMonth(@PathVariable("monthVar") Integer monthVar) {
+    return transactionAccountService.getCommissionByMonth(monthVar);
   }
 
 }

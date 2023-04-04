@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -20,6 +21,10 @@ public interface ProductService {
 
   Completable delete(Integer productId);
 
+  Maybe<Product> findById(Integer productId);
+
   Observable<Object> getCommissionsByProduct(Integer getMonth, Integer getYear );
+
+
 
 }

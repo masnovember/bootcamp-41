@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
   @Autowired
   private Mapper mapper;
   @Autowired
-  private ValidateClient validateClient;
+  private ValidateRegister validateRegister;
 
   @Override
   public Flux<Account> getAll() {
@@ -38,10 +38,10 @@ public class AccountServiceImpl implements AccountService {
   @Transactional()
   public Mono<Account> save(AccountDto accountDto) {
     return accountRepository
-        .existsById(accountDto.getClientId())
+        .existsById(accountDto.getAccountId())
         .flatMap(isExist->{
           if (!isExist) {
-            return validateClient.validateTypeClient(accountDto)
+            return validateRegister.validateTypeClient(accountDto)
                 .flatMap(isTrue->{
                   if (isTrue) {
                     return accountRepository.save(mapper.map(accountDto, Account.class));
@@ -79,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
   @Override
   public Flux<Account> findByClientId(Integer clientId) {
     return accountRepository.findAll()
-        .filter(p -> p.getClientId().equals(clientId))
+        .filter(p -> p.getClient().getClientId().equals(clientId))
         .switchIfEmpty(Mono.empty());
   }
 
@@ -94,7 +94,7 @@ public class AccountServiceImpl implements AccountService {
   public Flux<Object> getBalanceByClientId(Integer clientId) {
     return this.accountRepository
         .findAll()
-        .filter(p -> p.getClientId().equals(clientId))
+        .filter(p -> p.getClient().getClientId().equals(clientId))
         .flatMap(x -> {
           Map<String, String> map = new HashMap<>();
           map.put("accountNumber", x.getAccountNumber());

@@ -1,4 +1,4 @@
-package com.nttdata.bank.account.bankaccount.business.entity;
+package com.nttdata.bank.credit.bankcredit.business.entity;
 
 import lombok.Data;
 
