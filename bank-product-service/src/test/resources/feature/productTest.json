@@ -1,0 +1,11 @@
+{
+    "productId": 1,
+    "productName": "Cuenta de Ahorro",
+    "productType": "P",
+    "productHaveMaintenance": 0,
+    "productMaintenance": 0,
+    "productHaveLimitMovements":1,
+    "productMonthlyMovements": 5,
+    "productHaveDayMovements":0,
+    "productDayMovements":0
+}
