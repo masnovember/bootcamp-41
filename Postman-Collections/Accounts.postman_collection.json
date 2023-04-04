@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "3161db11-66fd-4853-a227-5a68ec8b0edb",
+		"name": "Accounts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FindByAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8003/accounts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8003/accounts/delete/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts",
+						"delete",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8003/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accountId\": 1,\r\n        \"accountNumber\": \"010101010101\",\r\n        \"client\":{\r\n            \"clientId\": 1\r\n        },\r\n        \"product\":{\r\n          \"productId\": 1  \r\n        },\r\n        \"accountBalance\": 0,\r\n        \"accountHeadlines\": [\"Felipe Garcia Lora\",\"Carlos Bustamante Felix\"],\r\n        \"accountSignatories\": [\"Carlos Bustamante Felix\"]\r\n         }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8003/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"accountId\": 5,\r\n        \"accountNumber\": \"050505050505\",\r\n        \"clientId\": 5,\r\n        \"productId\": 1,\r\n        \"accountBalance\": 1,\r\n        \"accountDateOpen\":\"{{$timestamp}}\",\r\n        \"accountDateClose\":\"{{$timestamp}}\",\r\n        \"accountCardNumber\":\"\",\r\n        \"accountDebitOrder\":0,\r\n        \"accountHeadlines\": [\"Felipe Garcia Lora\",\"Carlos Bustamante Felix\"],\r\n        \"accountSignatories\": [\"Carlos Bustamante Felix\"]\r\n         }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8003/accounts/updAccounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts",
+						"updAccounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindBalanceByClient",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8003/accounts/balanceByClientId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts",
+						"balanceByClientId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAccountByClientId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8003/accounts/byClient/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts",
+						"byClient",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBalanceAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8003/accounts/updBalance/1/500",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"accounts",
+						"updBalance",
+						"1",
+						"500"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

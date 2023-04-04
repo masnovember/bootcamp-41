@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "4bbf08ec-97b1-4d81-a81f-2e22d4ace7f8",
+		"name": "Account Transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FindByAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8006/transactions/accounts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"transactions",
+						"accounts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByTransaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8006/transactions/credits/delete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"transactions",
+						"credits",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllTransaction",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8006/transactions/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"transactions",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveTransaction",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var moment = require('moment');\r",
+							"pm.globals.set(\"currentdate\",moment().format(\"YYYY-MM-DD\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionId\": 6,\r\n    \"transactionType\": \"101\",\r\n    \"account\":{\r\n            \"accountId\": 1\r\n   },\r\n    \"transactionAmount\":500,\r\n     \"transactionDate\":\"03/04/2023\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/transactions/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"transactions",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTransaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionId\": 6,\r\n    \"transactionType\": \"101\",\r\n    \"account\":{\r\n            \"accountId\": 1\r\n   },\r\n    \"transactionAmount\":500,\r\n     \"transactionDate\":\"03/04/2023\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/transactions/accounts/updTransaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"transactions",
+						"accounts",
+						"updTransaction"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

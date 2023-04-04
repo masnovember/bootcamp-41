@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "221d7c4c-f944-4351-85ad-732e899f92b2",
+		"name": "Wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FindAllWallet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/wallet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveWallet_1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"walletUserId\":1,\r\n    \"typeIdentificationDocument\":\"101\",\r\n    \"numberIdentificationDocument\": \"12345678\",\r\n    \"mobileNumber\":\"987654321\",\r\n    \"mobileImei\":\"123456789012345\",\r\n    \"wallerUserEmail\": \"demo@demo.com\",\r\n    \"walletBalance\" : 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/wallet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveWallet_2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"walletUserId\":2,\r\n    \"typeIdentificationDocument\":\"101\",\r\n    \"numberIdentificationDocument\": \"87654321\",\r\n    \"mobileNumber\":\"123456789\",\r\n    \"mobileImei\":\"543210987654321\",\r\n    \"wallerUserEmail\": \"demo2@demo.com\",\r\n    \"walletBalance\" : 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/wallet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

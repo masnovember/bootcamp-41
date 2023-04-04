@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "c3a424d6-93a9-46fa-b326-0b796e714a55",
+		"name": "Credits",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FindByCredit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8004/credits/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8004",
+					"path": [
+						"credits",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByCredit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8004/credits/delete/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8004",
+					"path": [
+						"credits",
+						"delete",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllCredit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8004/credits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8004",
+					"path": [
+						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveCredit",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var moment = require('moment');\r",
+							"pm.globals.set(\"currentdate\",moment().format(\"YYYY-MM-DD\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"creditId\":1,\r\n \"creditNumber\":\"101010101010\",\r\n \"clientId\":1,\r\n \"productId\":6,\r\n \"creditLine\": 9000,\r\n \"creditMonths\":0,\r\n \"creditBalance\":9000,\r\n \"creditDateOpen\":\"{{currentdate}}\",\r\n \"creditDateClose\":\"{{currentdate}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8004/credits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8004",
+					"path": [
+						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateCredit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"creditId\":4,\r\n \"creditNumber\":\"404040404040\",\r\n \"clientId\":4,\r\n \"productId\":9,\r\n \"creditLine\": 9000,\r\n \"creditMonths\":0,\r\n \"creditBalance\":9000,\r\n \"creditDateOpen\":{{$timestamp}},\r\n \"creditDateClose\":{{$timestamp}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8004/credits/updCredit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8004",
+					"path": [
+						"credits",
+						"updCredit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindBalanceByClient",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"creditId\":4,\r\n \"creditNumber\":\"404040404040\",\r\n \"clientId\":4,\r\n \"productId\":9,\r\n \"creditLine\": 9000,\r\n \"creditMonths\":0,\r\n \"creditBalance\":9000,\r\n \"creditDateOpen\":{{$timestamp}},\r\n \"creditDateClose\":{{$timestamp}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8004/credits/balanceByClientId/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8004",
+					"path": [
+						"credits",
+						"balanceByClientId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

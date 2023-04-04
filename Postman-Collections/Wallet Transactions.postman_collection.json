@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "f2353276-52d3-4d72-827d-4f2ce4a78655",
+		"name": "Wallet Transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FindByAllTransaction",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8009/transactions/wallet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8009",
+					"path": [
+						"transactions",
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveTransaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionId\":1,\r\n    \"mobileNumberOrigin\":\"987654321\",\r\n    \"mobileNumberDestination\":\"123456789\",\r\n    \"transactionAmount\":1200,\r\n     \"transactionDate\": \"02/04/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8009/transactions/wallet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8009",
+					"path": [
+						"transactions",
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

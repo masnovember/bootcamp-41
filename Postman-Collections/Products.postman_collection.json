@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "86e603b4-d4c0-4c55-a02d-c32edb232b52",
+		"name": "Products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gateway",
+			"item": [
+				{
+					"name": "FindAllProduct-Gateway",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DeleteByProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8002/products/delete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"products",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8002/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": 1,\r\n    \"productName\": \"Cuenta de Ahorro\",\r\n    \"productType\": \"P\",\r\n    \"productHaveMaintenance\": 0,\r\n    \"productMaintenance\": 0,\r\n    \"productHaveLimitMovements\":1,\r\n    \"productMonthlyMovements\": 5,\r\n    \"productHaveDayMovements\":0,\r\n    \"productDayMovements\":0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8002/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveAllProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"productId\": 1,\r\n        \"productName\": \"Cuenta de Ahorro\",\r\n        \"productType\": \"P\",\r\n        \"productHaveMaintenance\": 0,\r\n        \"productMaintenance\": 0,\r\n        \"productHaveLimitMovements\":1,\r\n        \"productMonthlyMovements\": 20,\r\n        \"productHaveDayMovements\":0,\r\n        \"productDayMovements\":0,\r\n        \"productCommisionMovements\":10\r\n    },\r\n    {\r\n        \"productId\": 2,\r\n        \"productName\": \"Cuenta Corriente\",\r\n        \"productType\": \"P\",\r\n        \"productHaveMaintenance\": 1,\r\n        \"productMaintenance\": 10.0,\r\n        \"productHaveLimitMovements\":1,\r\n        \"productMonthlyMovements\": 20,\r\n        \"productHaveDayMovements\":0,\r\n        \"productDayMovements\":0,\r\n        \"productCommisionMovements\":15\r\n    },\r\n    {\r\n        \"productId\": 3,\r\n        \"productName\": \"Cuenta a Plazo Fijo\",\r\n        \"productType\": \"P\",\r\n        \"productHaveMaintenance\": 0,\r\n        \"productMaintenance\": 0,\r\n        \"productHaveLimitMovements\":1,\r\n        \"productMonthlyMovements\": 1,\r\n        \"productHaveDayMovements\":1,\r\n        \"productDayMovements\":15,\r\n        \"productCommisionMovements\":20\r\n    },\r\n    {\r\n        \"productId\": 4,\r\n        \"productName\": \"Crédito Personal\",\r\n        \"productType\": \"A\",\r\n        \"productHaveMaintenance\": 0,\r\n        \"productMaintenance\": 0,\r\n        \"productHaveLimitMovements\":0,\r\n        \"productMonthlyMovements\": 0,\r\n        \"productHaveDayMovements\":0,\r\n        \"productDayMovements\":0\r\n    },\r\n    {\r\n        \"productId\": 5,\r\n        \"productName\": \"Crédito Empresarial\",\r\n        \"productType\": \"A\",\r\n        \"productHaveMaintenance\": 0,\r\n        \"productMaintenance\": 0,\r\n        \"productHaveLimitMovements\":0,\r\n        \"productMonthlyMovements\": 0,\r\n        \"productHaveDayMovements\":0,\r\n        \"productDayMovements\":0\r\n    },\r\n    {\r\n        \"productId\": 6,\r\n        \"productName\": \"Tarjeta de Crédito Personal\",\r\n        \"productType\": \"A\",\r\n        \"productHaveMaintenance\": 0,\r\n        \"productMaintenance\": 0,\r\n        \"productHaveLimitMovements\":0,\r\n        \"productMonthlyMovements\": 0,\r\n        \"productHaveDayMovements\":0,\r\n        \"productDayMovements\":0\r\n    },\r\n    {\r\n        \"productId\": 7,\r\n        \"productName\": \"Tarjeta de Crédito Empresarial\",\r\n        \"productType\": \"A\",\r\n        \"productHaveMaintenance\": 0,\r\n        \"productMaintenance\": 0,\r\n        \"productHaveLimitMovements\":0,\r\n        \"productMonthlyMovements\": 0,\r\n        \"productHaveDayMovements\":0,\r\n        \"productDayMovements\":0\r\n    }\r\n]    \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8002/products/allProducts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"products",
+						"allProducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": 9,\r\n    \"productName\": \"Tarjeta Crédito Empresarial\",\r\n    \"productType\": \"A\",\r\n    \"productSubType\": \"TE\",\r\n    \"productMaintenance\": 0,\r\n    \"productMonthlyMovements\": 9999999\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8002/products/updProducts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"products",
+						"updProducts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
