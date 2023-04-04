@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: bank-transaction-wallet-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8090
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: banca
+topic: transactionWalletTopic
